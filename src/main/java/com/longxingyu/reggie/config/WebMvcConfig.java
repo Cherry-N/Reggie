@@ -35,8 +35,6 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     }
 
     /**
-     * 拓展MVC的消息转化器
-     *
      * @param converters
      */
     @Override

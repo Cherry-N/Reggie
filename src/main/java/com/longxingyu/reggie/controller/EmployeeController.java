@@ -12,7 +12,6 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 
 /**
  * {@code @Create:}  2023-06-05  20 : 26
@@ -95,14 +94,15 @@ public class EmployeeController {
         //设置初始密码 为123456 需要进行md5加密
         employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
 
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
+//        employee.setCreateTime(LocalDateTime.now());
+//        employee.setUpdateTime(LocalDateTime.now());
+//
+//        //获取当前登陆用户的id
+//        Long empId = (Long) httpServletRequest.getSession().getAttribute("employee");
+//
+//        employee.setCreateUser(empId);
+//        employee.setUpdateUser(empId);
 
-        //获取当前登陆用户的id
-        Long empId = (Long) httpServletRequest.getSession().getAttribute("employee");
-
-        employee.setCreateUser(empId);
-        employee.setUpdateUser(empId);
         employeeService.save(employee);
 
         return R.success("创建用户成功");
@@ -143,9 +143,11 @@ public class EmployeeController {
     @PutMapping
     public R<String> update(HttpServletRequest httpServletRequest, @RequestBody Employee employee) {
         log.info(employee.toString());
-        Long empId = (Long) httpServletRequest.getSession().getAttribute("employee");
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser(empId);
+
+//        Long empId = (Long) httpServletRequest.getSession().getAttribute("employee");
+//        employee.setUpdateTime(LocalDateTime.now());
+//        employee.setUpdateUser(empId);
+
         employeeService.updateById(employee);
         return R.success("员工信息修改成功");
     }
