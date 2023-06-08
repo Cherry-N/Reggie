@@ -62,7 +62,6 @@
                 </ModuleInfoGo>
               </list>
             </option>
-            <option name="needToStringHashcodeEquals" value="true" />
             <option name="needsComment" value="true" />
             <option name="needsModel" value="true" />
             <option name="relativePackage" value="pojo" />
@@ -70,8 +69,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="Employee" />
-                  <option name="tableName" value="employee" />
+                  <option name="className" value="Setmeal" />
+                  <option name="tableName" value="setmeal" />
                 </TableUIInfo>
               </list>
             </option>

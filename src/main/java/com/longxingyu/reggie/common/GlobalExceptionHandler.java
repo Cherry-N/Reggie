@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 /**
  * {@code @Create:}  2023-06-06  15 : 57
  * {@code @Author:} Cherry
@@ -26,14 +28,26 @@ public class GlobalExceptionHandler {
      * @param e
      * @return
      */
-    @ExceptionHandler(Exception.class)
-    public R<String> exceptionHandler(Exception e) {
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public R<String> exceptionHandler(SQLIntegrityConstraintViolationException e) {
         log.error(e.getMessage());
         if (e.getMessage().contains("Duplicate entry")) {
             String[] s = e.getMessage().split(" ");
             String msg = s[2] + "已存在";
             return R.error(msg);
         }
+        return R.error(e.getMessage());
+    }
+
+    /**
+     * 异常处理方法
+     *
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(CustomException.class)
+    public R<String> exceptionHandler(CustomException e) {
+        log.error(e.getMessage());
         return R.error(e.getMessage());
     }
 }
