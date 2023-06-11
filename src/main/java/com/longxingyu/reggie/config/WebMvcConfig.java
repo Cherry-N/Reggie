@@ -31,7 +31,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         log.info("开始记录静态资源映射");
         registry.addResourceHandler("backend/**").addResourceLocations("classpath:/backend/");
-        registry.addResourceHandler("front/**").addResourceLocations("classpath/front/");
+        registry.addResourceHandler("front/**").addResourceLocations("classpath:/front/");
     }
 
     /**
