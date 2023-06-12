@@ -29,7 +29,7 @@ public class Setmeal implements Serializable {
      * 菜品分类id
      */
     @TableField(value = "category_id")
-    private Long category_id;
+    private Long categoryId;
     /**
      * 套餐名称
      */

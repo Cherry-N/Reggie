@@ -11,4 +11,8 @@ import com.longxingyu.reggie.pojo.Dish;
  */
 public interface DishService extends IService<Dish> {
     void saveWithFlavor(DishDto dishDto);
+
+    DishDto getDishWithFlavors(Long id);
+
+    void updateWithFlavors(DishDto dishDto);
 }

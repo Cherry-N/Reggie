@@ -45,7 +45,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
 
         LambdaQueryWrapper<Setmeal> setmealLambdaQueryWrapper = new LambdaQueryWrapper<>();
         //添加查询条件，根据分类id进行查询
-        setmealLambdaQueryWrapper.eq(Setmeal::getCategory_id, id);
+        setmealLambdaQueryWrapper.eq(Setmeal::getCategoryId, id);
         int count2 = setmealService.count(setmealLambdaQueryWrapper);
         //查询当前分类是否关联了套餐，如果已经关联，抛出业务异常
         if (count2 > 0) {
