@@ -98,4 +98,83 @@ public class SetmealController {
         return R.success(pageDtoInfo);
     }
 
+    /**
+     * 删除套餐
+     *
+     * @param ids
+     * @return
+     */
+//    @DeleteMapping
+//    public R<String> delete1(String[] ids) {
+//        int index = 0;
+//        for (String id : ids) {
+//            Setmeal setmeal = setmealService.getById(id);
+//            if (setmeal.getStatus() != 1) {
+//                setmealService.removeById(id);
+//            } else {
+//                index++;
+//            }
+//        }
+//        if (index > 0 && index == ids.length) {
+//            return R.error("所选套餐均为起售状态 不能删除");
+//        } else {
+//            return R.success("删除成功");
+//        }
+//    }
+
+    /**
+     * 删除套餐
+     *
+     * @param ids
+     * @return
+     */
+    @DeleteMapping
+    public R<String> delete2(@RequestParam List<Long> ids) {
+        log.info("ids:{}", ids);
+        setmealService.removeWithDish(ids);
+        return null;
+    }
+
+    /**
+     * 根据id查询套餐信息
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("{id}")
+    public R<SetmealDto> get(@PathVariable Long id) {
+        SetmealDto setmealDto = setmealService.getByIdWithDish(id);
+        log.info("setmeal:{}", setmealDto);
+        return R.success(setmealDto);
+    }
+
+    /**
+     * 修改套餐信息
+     *
+     * @param id
+     * @return
+     */
+    @PutMapping
+    public R<String> update(@RequestBody SetmealDto setmealDto) {
+        setmealService.updateWithDish(setmealDto);
+        log.info("setmeal:{}", setmealDto);
+        return R.success("修改成功");
+    }
+
+    /**
+     * 停售起售状态修改
+     *
+     * @param status
+     * @param ids
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    public R<String> sale(@PathVariable int status, String[] ids) {
+        for (String id : ids) {
+            Setmeal setmeal = setmealService.getById(id);
+            setmeal.setStatus(status);
+            setmealService.updateById(setmeal);
+        }
+        return R.success("修改成功");
+    }
 }
