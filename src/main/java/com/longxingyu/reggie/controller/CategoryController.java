@@ -3,7 +3,7 @@ package com.longxingyu.reggie.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.longxingyu.reggie.common.R;
-import com.longxingyu.reggie.pojo.Category;
+import com.longxingyu.reggie.pojo.CateGory;
 import com.longxingyu.reggie.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class CategoryController {
      * @return
      */
     @PostMapping
-    public R<String> save(@RequestBody Category category) {
+    public R<String> save(@RequestBody CateGory category) {
         log.info("category:{}", category);
         categoryService.save(category);
         return R.success("新增分类成功");
@@ -53,11 +53,11 @@ public class CategoryController {
     @GetMapping("/page")
     public R<Page> page(int page, int pageSize) {
         //分页构造器
-        Page<Category> pageInfo = new Page<>(page, pageSize);
+        Page<CateGory> pageInfo = new Page<>(page, pageSize);
         //条件构造器
-        LambdaQueryWrapper<Category> objectLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<CateGory> objectLambdaQueryWrapper = new LambdaQueryWrapper<>();
         //添加排序添加，根据sort进行排序
-        objectLambdaQueryWrapper.orderByAsc(Category::getSort);
+        objectLambdaQueryWrapper.orderByAsc(CateGory::getSort);
         //进行分页查询
         categoryService.page(pageInfo, objectLambdaQueryWrapper);
 
@@ -84,10 +84,12 @@ public class CategoryController {
      * @return
      */
     @PutMapping
-    public R<String> update(@RequestBody Category category) {
+    public R<String> update(@RequestBody CateGory category) {
         log.info("修改分类信息：{}", category);
         categoryService.updateById(category);
         return R.success("修改分类信息成功");
+
+
     }
 
     /**
@@ -97,13 +99,13 @@ public class CategoryController {
      * @return
      */
     @GetMapping("/list")
-    public R<List<Category>> list(Category category) {
+    public R<List<CateGory>> list(CateGory category) {
         //条件构造器
-        LambdaQueryWrapper<Category> categoryLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        categoryLambdaQueryWrapper.eq(category.getType() != null, Category::getType, category.getType())
-                .orderByAsc(Category::getSort)
-                .orderByDesc(Category::getUpdateTime);
-        List<Category> list = categoryService.list(categoryLambdaQueryWrapper);
+        LambdaQueryWrapper<CateGory> categoryLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        categoryLambdaQueryWrapper.eq(category.getType() != null, CateGory::getType, category.getType())
+                .orderByAsc(CateGory::getSort)
+                .orderByDesc(CateGory::getUpdateTime);
+        List<CateGory> list = categoryService.list(categoryLambdaQueryWrapper);
         return R.success(list);
     }
 }

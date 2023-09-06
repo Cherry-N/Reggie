@@ -2,7 +2,7 @@ package com.longxingyu.reggie.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.longxingyu.reggie.dto.DishDto;
+import com.longxingyu.reggie.dto.DishDTO;
 import com.longxingyu.reggie.mapper.DishMapper;
 import com.longxingyu.reggie.pojo.Dish;
 import com.longxingyu.reggie.pojo.DishFlavor;
@@ -34,7 +34,7 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish>
      */
     @Transactional
     @Override
-    public void saveWithFlavor(DishDto dishDto) {
+    public void saveWithFlavor(DishDTO dishDto) {
         //保存菜品的基本信息 到菜品表
         save(dishDto);
 
@@ -58,11 +58,11 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish>
     }
 
     @Override
-    public DishDto getDishWithFlavors(Long id) {
+    public DishDTO getDishWithFlavors(Long id) {
         //查询菜品
         Dish dish = this.getById(id);
 
-        DishDto dishDto = new DishDto();
+        DishDTO dishDto = new DishDTO();
         BeanUtils.copyProperties(dish, dishDto);
         //查询菜品对应的口味信息 从dish_flavors表查询
 
@@ -77,7 +77,7 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish>
 
     @Override
     @Transactional
-    public void updateWithFlavors(DishDto dishDto) {
+    public void updateWithFlavors(DishDTO dishDto) {
         //更新dish表普通信息
         this.updateById(dishDto);
 

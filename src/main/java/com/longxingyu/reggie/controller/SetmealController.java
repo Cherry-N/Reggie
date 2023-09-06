@@ -4,8 +4,8 @@ import com.alibaba.druid.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.longxingyu.reggie.common.R;
-import com.longxingyu.reggie.dto.SetmealDto;
-import com.longxingyu.reggie.pojo.Category;
+import com.longxingyu.reggie.dto.SetmealDTO;
+import com.longxingyu.reggie.pojo.CateGory;
 import com.longxingyu.reggie.pojo.Setmeal;
 import com.longxingyu.reggie.service.CategoryService;
 import com.longxingyu.reggie.service.SetmealDishService;
@@ -45,7 +45,7 @@ public class SetmealController {
      * @return
      */
     @PostMapping
-    public R<String> save(@RequestBody SetmealDto setmealDto) {
+    public R<String> save(@RequestBody SetmealDTO setmealDto) {
         log.info("套餐信息：{}", setmealDto);
         setmealService.saveWithDish(setmealDto);
         return R.success("新增套餐成功");
@@ -64,7 +64,7 @@ public class SetmealController {
         //构造分页构造器
         Page<Setmeal> pageInfo = new Page<>(page, pageSize);
 
-        Page<SetmealDto> pageDtoInfo = new Page<>();
+        Page<SetmealDTO> pageDtoInfo = new Page<>();
         //构造条件构造器
         LambdaQueryWrapper<Setmeal> queryWrapper = new LambdaQueryWrapper<>();
         //根据name进行模糊查询
@@ -79,13 +79,13 @@ public class SetmealController {
 
         List<Setmeal> records = pageInfo.getRecords();
 
-        List<SetmealDto> list = records.stream().map((item) -> {
-            SetmealDto setmealDto = new SetmealDto();
+        List<SetmealDTO> list = records.stream().map((item) -> {
+            SetmealDTO setmealDto = new SetmealDTO();
 
             BeanUtils.copyProperties(item, setmealDto);
             Long categoryId = item.getCategoryId();
             //根据id查分类对象
-            Category category = categoryService.getById(categoryId);
+            CateGory category = categoryService.getById(categoryId);
             if (category != null) {
                 String categoryName = category.getName();
                 setmealDto.setCategoryName(categoryName);
@@ -142,8 +142,8 @@ public class SetmealController {
      * @return
      */
     @GetMapping("{id}")
-    public R<SetmealDto> get(@PathVariable Long id) {
-        SetmealDto setmealDto = setmealService.getByIdWithDish(id);
+    public R<SetmealDTO> get(@PathVariable Long id) {
+        SetmealDTO setmealDto = setmealService.getByIdWithDish(id);
         log.info("setmeal:{}", setmealDto);
         return R.success(setmealDto);
     }
@@ -155,7 +155,7 @@ public class SetmealController {
      * @return
      */
     @PutMapping
-    public R<String> update(@RequestBody SetmealDto setmealDto) {
+    public R<String> update(@RequestBody SetmealDTO setmealDto) {
         setmealService.updateWithDish(setmealDto);
         log.info("setmeal:{}", setmealDto);
         return R.success("修改成功");

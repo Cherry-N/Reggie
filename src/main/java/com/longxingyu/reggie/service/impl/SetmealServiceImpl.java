@@ -3,7 +3,7 @@ package com.longxingyu.reggie.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.longxingyu.reggie.common.CustomException;
-import com.longxingyu.reggie.dto.SetmealDto;
+import com.longxingyu.reggie.dto.SetmealDTO;
 import com.longxingyu.reggie.mapper.SetmealMapper;
 import com.longxingyu.reggie.pojo.Setmeal;
 import com.longxingyu.reggie.pojo.SetmealDish;
@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal>
         implements SetmealService {
+
     @Autowired
     private SetmealDishService setmealDishService;
 
@@ -37,7 +38,7 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal>
      */
     @Override
     @Transactional
-    public void saveWithDish(SetmealDto setmealDto) {
+    public void saveWithDish(SetmealDTO setmealDto) {
         //保存套餐基本信息，操作setmeal，执行insert操作
         this.save(setmealDto);
 
@@ -76,7 +77,7 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal>
 
         //如果没有在售  直接删除
         this.removeByIds(ids);
- 
+
         //删除套餐所关联的菜品
         LambdaQueryWrapper<SetmealDish> setmealDishLambdaQueryWrapper = new LambdaQueryWrapper<>();
         setmealDishLambdaQueryWrapper.in(SetmealDish::getSetmealId, ids);
@@ -90,10 +91,10 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal>
      * @return
      */
     @Override
-    public SetmealDto getByIdWithDish(Long id) {
+    public SetmealDTO getByIdWithDish(Long id) {
         //查询套餐基本信息
         Setmeal setmeal = this.getById(id);
-        SetmealDto setmealDto = new SetmealDto();
+        SetmealDTO setmealDto = new SetmealDTO();
         BeanUtils.copyProperties(setmeal, setmealDto);
 
         //查询套餐菜品信息
@@ -111,7 +112,7 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal>
      */
     @Override
     @Transactional
-    public void updateWithDish(SetmealDto setmealDto) {
+    public void updateWithDish(SetmealDTO setmealDto) {
         //更新setmeal表基本信息
         this.updateById(setmealDto);
 

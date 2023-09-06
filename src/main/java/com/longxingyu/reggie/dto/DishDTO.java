@@ -1,13 +1,14 @@
 package com.longxingyu.reggie.dto;
 
-import com.longxingyu.reggie.pojo.Setmeal;
-import com.longxingyu.reggie.pojo.SetmealDish;
+import com.longxingyu.reggie.pojo.Dish;
+import com.longxingyu.reggie.pojo.DishFlavor;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@code @Create:}  2023-06-12  19 : 57
+ * {@code @Create:}  2023-06-08  19 : 26
  * {@code @Author:} Cherry
  * {@code @ToUser:} Be Happy EveryDay
  * ------------------------------------
@@ -16,8 +17,8 @@ import java.util.List;
 
 @SuppressWarnings({"all"})
 @Data
-public class SetmealDto extends Setmeal {
-    private List<SetmealDish> setmealDishes;
-
+public class DishDTO extends Dish {
+    private List<DishFlavor> flavors = new ArrayList<>();
     private String categoryName;
+    private Integer copies;
 }

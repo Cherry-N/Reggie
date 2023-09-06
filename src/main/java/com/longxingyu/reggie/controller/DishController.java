@@ -3,8 +3,8 @@ package com.longxingyu.reggie.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.longxingyu.reggie.common.R;
-import com.longxingyu.reggie.dto.DishDto;
-import com.longxingyu.reggie.pojo.Category;
+import com.longxingyu.reggie.dto.DishDTO;
+import com.longxingyu.reggie.pojo.CateGory;
 import com.longxingyu.reggie.pojo.Dish;
 import com.longxingyu.reggie.service.CategoryService;
 import com.longxingyu.reggie.service.DishService;
@@ -45,7 +45,7 @@ public class DishController {
      * @return
      */
     @PostMapping
-    public R<String> save(@RequestBody DishDto dishDto) {
+    public R<String> save(@RequestBody DishDTO dishDto) {
         log.info(dishDto.toString());
         dishService.saveWithFlavor(dishDto);
         return R.success("新增菜品成功");
@@ -64,7 +64,7 @@ public class DishController {
         //构造分页构造器
         Page<Dish> pageInfo = new Page<>(page, pageSize);
 
-        Page<DishDto> dishDtoPage = new Page<>();
+        Page<DishDTO> dishDtoPage = new Page<>();
 
         //构造条件构造器
         LambdaQueryWrapper<Dish> queryWrapper = new LambdaQueryWrapper<>();
@@ -82,13 +82,13 @@ public class DishController {
         BeanUtils.copyProperties(pageInfo, dishDtoPage, "records");
 
         List<Dish> records = pageInfo.getRecords();
-        List<DishDto> list = records.stream().map((item) -> {
-            DishDto dishDto = new DishDto();
+        List<DishDTO> list = records.stream().map((item) -> {
+            DishDTO dishDto = new DishDTO();
 
             BeanUtils.copyProperties(item, dishDto);
             Long categoryId = item.getCategoryId();
             //根据id查分类对象
-            Category category = categoryService.getById(categoryId);
+            CateGory category = categoryService.getById(categoryId);
             if (category != null) {
                 String categoryName = category.getName();
                 dishDto.setCategoryName(categoryName);
@@ -108,8 +108,8 @@ public class DishController {
      * @return
      */
     @GetMapping("{id}")
-    public R<DishDto> getdishDto(@PathVariable Long id) {
-        DishDto dishDto = dishService.getDishWithFlavors(id);
+    public R<DishDTO> getdishDto(@PathVariable Long id) {
+        DishDTO dishDto = dishService.getDishWithFlavors(id);
         return R.success(dishDto);
     }
 
@@ -120,7 +120,7 @@ public class DishController {
      * @return
      */
     @PutMapping
-    public R<String> updateDishDto(@RequestBody DishDto dishDto) {
+    public R<String> updateDishDto(@RequestBody DishDTO dishDto) {
         log.info(dishDto.toString());
 
         dishService.updateWithFlavors(dishDto);

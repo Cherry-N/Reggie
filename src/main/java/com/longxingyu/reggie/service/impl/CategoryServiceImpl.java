@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.longxingyu.reggie.common.CustomException;
 import com.longxingyu.reggie.mapper.CategoryMapper;
-import com.longxingyu.reggie.pojo.Category;
+import com.longxingyu.reggie.pojo.CateGory;
 import com.longxingyu.reggie.pojo.Dish;
 import com.longxingyu.reggie.pojo.Setmeal;
 import com.longxingyu.reggie.service.CategoryService;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
  * @createDate 2023-06-07 19:47:06
  */
 @Service
-public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
+public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, CateGory>
         implements CategoryService {
     @Autowired
     private DishService dishService;

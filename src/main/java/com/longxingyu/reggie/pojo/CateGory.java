@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  */
 @TableName(value = "category")
 @Data
-public class Category implements Serializable {
+public class CateGory implements Serializable {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
     /**

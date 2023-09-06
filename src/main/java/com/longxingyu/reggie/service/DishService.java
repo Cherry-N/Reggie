@@ -1,7 +1,7 @@
 package com.longxingyu.reggie.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.longxingyu.reggie.dto.DishDto;
+import com.longxingyu.reggie.dto.DishDTO;
 import com.longxingyu.reggie.pojo.Dish;
 
 /**
@@ -10,9 +10,9 @@ import com.longxingyu.reggie.pojo.Dish;
  * @createDate 2023-06-07 20:55:56
  */
 public interface DishService extends IService<Dish> {
-    void saveWithFlavor(DishDto dishDto);
+    void saveWithFlavor(DishDTO dishDto);
 
-    DishDto getDishWithFlavors(Long id);
+    DishDTO getDishWithFlavors(Long id);
 
-    void updateWithFlavors(DishDto dishDto);
+    void updateWithFlavors(DishDTO dishDto);
 }
